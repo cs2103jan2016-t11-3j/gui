@@ -2,6 +2,7 @@ package application;
 	
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,6 +17,8 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 
 public class Main extends Application {
@@ -28,27 +31,28 @@ public class Main extends Application {
 		
 		window = primaryStage;
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root,400,400);
+		Scene scene = new Scene(root,550,500);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		Label title = new Label("Adult TaskFinder");
+		
 		window.setTitle("Adult TaskFinder");
 		window.setScene(scene);
 		window.show();
 		
-		root.setTop(title);
+		addTitleTop(root);
 		addTextBox(root);
 		addCenterPage(root);
 	}
 	
-	/**private void addCenterPage(BorderPane root) {
-		ListView<String> listView = new ListView<String>();
-		listView.getItems().addAll("first task", "second task");
-		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		root.setCenter(listView);
+	private void addTitleTop(BorderPane root) {
+		Label title = new Label("Adult TaskFinder");
+		title.setFont(new Font("Cambria",28));
+		title.setAlignment(Pos.CENTER);
+		VBox topPane = new VBox(200);
+		topPane.getChildren().add(title);
+		topPane.setPadding(new Insets(10,10,10,10));
+		root.setTop(topPane);
 	}
-	*/
-	
-	
+
 	private void addCenterPage(BorderPane root) {
 		TableColumn<String, String> indexColumn = new TableColumn<>("Index");
 		indexColumn.setMinWidth(50);
@@ -65,45 +69,20 @@ public class Main extends Application {
 		table = new TableView<>();
 		table.getColumns().addAll(indexColumn, nameColumn, dateColumn);
 		
+		table.setPadding(new Insets(10,10,10,10));
 		root.setCenter(table);
 	}
-
-	/**
-	private void addCenterPage(BorderPane root) {
-		TreeView<String> taskLists = new TreeView<String>();
-		TreeItem<String> taskType, tasks;
-		
-		//root
-		taskType = new TreeItem<String>();
-		taskType.setExpanded(true);
-			
-		//branch
-		tasks = makeBranch("first task", taskType);
-		makeBranch("task2", tasks);
-		makeBranch("task3", tasks);
-		taskLists = new TreeView<>(taskType);
-		taskLists.setShowRoot(false);
-		
-		root.setCenter(taskLists);
-	}
-
-	public TreeItem<String> makeBranch(String listView, TreeItem<String> taskType) {
-		TreeItem<String> item = new TreeItem<>(listView);
-		item.setExpanded(true);
-		taskType.getChildren().add(item);
-		return item;
-	}
-	*/
 
 	private void addTextBox(BorderPane root) {
 		TextField userInput = new TextField();
 		userInput.setPromptText("input command");
-		userInput.setPrefWidth(300);
+		userInput.setPrefWidth(455);
 		Button button1 = new Button("Enter");
 		button1.setOnAction( e -> System.out.println(userInput.getText()));
 		HBox bottomPane = new HBox();
 		bottomPane.getChildren().addAll(userInput,button1);
 		bottomPane.setPadding(new Insets(20,20,20,20));
+		bottomPane.setSpacing(10);
 		root.setBottom(bottomPane);
 	}
 
