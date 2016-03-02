@@ -25,6 +25,7 @@ public class Main extends Application {
 	
 	Stage window;
 	TableView<String> table;
+	static String input;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -78,7 +79,10 @@ public class Main extends Application {
 		userInput.setPromptText("input command");
 		userInput.setPrefWidth(455);
 		Button button1 = new Button("Enter");
-		button1.setOnAction( e -> System.out.println(userInput.getText()));
+		button1.setOnAction( e -> {
+			input = userInput.getText();
+			System.out.println(userInput.getText());
+		});
 		HBox bottomPane = new HBox();
 		bottomPane.getChildren().addAll(userInput,button1);
 		bottomPane.setPadding(new Insets(20,20,20,20));
@@ -86,6 +90,9 @@ public class Main extends Application {
 		root.setBottom(bottomPane);
 	}
 
+	public static String getInput() {
+		return input;
+	}
 	
 	public static void main(String[] args) {
 		launch(args);
