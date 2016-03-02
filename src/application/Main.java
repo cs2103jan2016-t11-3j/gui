@@ -18,7 +18,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 
 
 public class Main extends Application {
@@ -46,22 +48,25 @@ public class Main extends Application {
 	
 	private void addTitleTop(BorderPane root) {
 		Label title = new Label("Adult TaskFinder");
-		title.setFont(new Font("Cambria",28));
+		title.setFont(Font.font("Cambria",FontPosture.ITALIC, 28));
 		title.setAlignment(Pos.CENTER);
+		title.setTextFill(Color.web("#2AEBDE"));
 		VBox topPane = new VBox(200);
 		topPane.getChildren().add(title);
 		topPane.setPadding(new Insets(10,10,10,10));
+		topPane.setStyle("-fx-background-color: #373939");
 		root.setTop(topPane);
+		
 	}
 
 	private void addCenterPage(BorderPane root) {
 		TableColumn<String, String> indexColumn = new TableColumn<>("Index");
 		indexColumn.setMinWidth(50);
-		indexColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+		indexColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
 
 		TableColumn<String, String> nameColumn = new TableColumn<>("Task Name");
 		nameColumn.setMinWidth(300);
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		TableColumn<String, String> dateColumn = new TableColumn<>("Date Due");
 		dateColumn.setMinWidth(150);
@@ -71,6 +76,7 @@ public class Main extends Application {
 		table.getColumns().addAll(indexColumn, nameColumn, dateColumn);
 		
 		table.setPadding(new Insets(10,10,10,10));
+		table.setStyle("-fx-background-color: #5D6666");
 		root.setCenter(table);
 	}
 
@@ -85,7 +91,7 @@ public class Main extends Application {
 		});
 		HBox bottomPane = new HBox();
 		bottomPane.getChildren().addAll(userInput,button1);
-		bottomPane.setPadding(new Insets(20,20,20,20));
+		bottomPane.setPadding(new Insets(10,20,10,20));
 		bottomPane.setSpacing(10);
 		root.setBottom(bottomPane);
 	}
