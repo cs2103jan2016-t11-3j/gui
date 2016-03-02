@@ -8,9 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -18,6 +21,7 @@ import javafx.scene.layout.HBox;
 public class Main extends Application {
 	
 	Stage window;
+	TableView<String> table;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -43,6 +47,28 @@ public class Main extends Application {
 		root.setCenter(listView);
 	}
 	*/
+	
+	
+	private void addCenterPage(BorderPane root) {
+		TableColumn<String, String> indexColumn = new TableColumn<>("Index");
+		indexColumn.setMinWidth(50);
+		indexColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
+
+		TableColumn<String, String> nameColumn = new TableColumn<>("Task Name");
+		nameColumn.setMinWidth(300);
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+		
+		TableColumn<String, String> dateColumn = new TableColumn<>("Date Due");
+		dateColumn.setMinWidth(150);
+		dateColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+		
+		table = new TableView<>();
+		table.getColumns().addAll(indexColumn, nameColumn, dateColumn);
+		
+		root.setCenter(table);
+	}
+
+	/**
 	private void addCenterPage(BorderPane root) {
 		TreeView<String> taskLists = new TreeView<String>();
 		TreeItem<String> taskType, tasks;
@@ -67,6 +93,7 @@ public class Main extends Application {
 		taskType.getChildren().add(item);
 		return item;
 	}
+	*/
 
 	private void addTextBox(BorderPane root) {
 		TextField userInput = new TextField();
